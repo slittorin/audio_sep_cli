@@ -1,14 +1,16 @@
 """
 audio-sep CLI
 
-Version history (high level):
-0.1 - First version from ChatGPT
-0.2 - Vibe coding to fix errors with conversion
-0.3 - Vibe coding to fix errors with two working-dirs for isolating stems.
-0.4 - Vibe coding to add:
-      Text output from the script that outlines the different stems/sounds that are isolated.
-	  Drum-stem onset detection + hit slicing + classification (kick/snare/hat).
-	  Keyboard as a stem: requires instrument separation / instrument recognition beyond the standard 4-stem Demucs output.
+Version history:
+0.1.0 - First version from ChatGPT.\
+0.2.0 - Vibe coding to fix errors with conversion.\
+0.3.0 - Vibe coding to fix errors with two working-dirs for isolating stems.\
+0.4.0 - Vibe coding to add:\
+        Text output from the script that outlines the different stems/sounds that are isolated.\
+	      Drum-stem onset detection + hit slicing + classification (kick/snare/hat).\
+	      Keyboard as a stem: requires instrument separation / instrument recognition beyond the standard 4-stem Demucs output.\
+0.5.0 - Added stem-notes also for bass,guitar,piano,vocals,other.\
+0.6.0 - Fixed warning with spectrum.py, and default options.
 
 Notes:
 - "Keyboard" stem: use Demucs 6-stem model (htdemucs_6s) which adds piano and guitar sources.
