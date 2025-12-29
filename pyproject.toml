@@ -1,6 +1,6 @@
 [project]
 name = "audio-sep"
-version = "0.2.3"
+version = "0.6.0"
 description = "Windows CLI for audio stem separation (Demucs) with segmenting, key estimation, and drum hit slicing"
 requires-python = ">=3.11"
 dependencies = [
