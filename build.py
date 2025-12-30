@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 """
-Bootstrap script for Windows (Python 3.11):
+Bootstrap script for Windows 
 
-Equivalent steps:
-  python -m venv .venv
-  .\.venv\Scripts\activate
-  pip install -U pip setuptools wheel
-  pip install torchcodec
-  pip install -e .
+Hardcoded to Python 3.11, since we otherwise get errors with some of the packages.
 
 Run (recommended):
   py -3.11 build.py
@@ -23,7 +18,6 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 VENV_DIR = PROJECT_ROOT / ".venv"
-VENV_PY = VENV_DIR / "Scripts" / "python.exe"
 
 
 def run(cmd: list[str]) -> None:
@@ -45,33 +39,51 @@ def ensure_py311() -> None:
         )
 
 
-def ensure_venv() -> None:
-    if VENV_PY.exists():
-        return
+def ensure_venv() -> Path:
+    """Return a usable python inside .venv, creating/recreating if needed."""
+    candidates = [
+        VENV_DIR / "Scripts" / "python.exe",  # Windows default
+        VENV_DIR / "Scripts" / "python",      # In case the exe suffix is missing
+        VENV_DIR / "bin" / "python",          # Posix-style layout
+    ]
+
+    for path in candidates:
+        if path.exists():
+            return path
+
+    # If .venv exists but has no python for this platform, rebuild it with the current interpreter.
+    if VENV_DIR.exists():
+        print("Recreating .venv for this platform...")
+
     run([sys.executable, "-m", "venv", str(VENV_DIR)])
 
+    for path in candidates:
+        if path.exists():
+            return path
 
-def pip_install(*args: str) -> None:
+    raise SystemExit("Failed to locate python in .venv after creation. Please remove .venv and retry.")
+
+
+def pip_install(python: Path, *args: str) -> None:
     # Always use venv python, so we don't depend on "activate" in the parent shell.
-    run([str(VENV_PY), "-m", "pip", "install", *args])
+    run([str(python), "-m", "pip", "install", *args])
 
 
 def main() -> None:
     ensure_py311()
-    ensure_venv()
+    venv_python = ensure_venv()
 
     # Upgrade core packaging tools
-    pip_install("-U", "pip", "setuptools", "wheel")
+    pip_install(venv_python, "-U", "pip", "setuptools", "wheel")
 
     # Install required package(s)
-    pip_install("torchcodec")
+    pip_install(venv_python, "torchcodec")
 
     # Install current project in editable mode
-    pip_install("-e", ".")
+    pip_install(venv_python, "-e", ".")
 
     print("\n✅ Done. Virtual environment is ready and project installed (editable).")
-    print(f"Activate in PowerShell:\n  {VENV_DIR}\\Scripts\\Activate.ps1")
-
+    print(f"Activate in PowerShell:\n  .\.venv\Scripts\activate")
 
 if __name__ == "__main__":
     main()

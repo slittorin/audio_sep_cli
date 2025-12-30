@@ -1,6 +1,6 @@
 [project]
-name = "audio-sep"
-version = "0.6.0"
+name = "audio-sep-cli"
+version = "0.6.1"
 description = "Windows CLI for audio stem separation (Demucs) with segmenting, key estimation, and drum hit slicing"
 requires-python = ">=3.11"
 dependencies = [
@@ -13,8 +13,14 @@ dependencies = [
 ]
 
 [project.scripts]
-audio-sep = "audio_sep.cli:app"
+audio-sep-cli = "audio_sep_cli.cli:app"
 
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

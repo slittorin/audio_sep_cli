@@ -1,4 +1,4 @@
-# audio-sep (Windows CLI)
+# audio-sep-cli
 
 Extract stems/slicings to wav-files from an audio-file, includes possibility for drum hit slicing/classification and keyboard/piano stem/slicing.
 The stems are analysed for possible key, where key is added to filename.
@@ -55,7 +55,7 @@ pip install -e .
 ```
 
 ## Usage
-Usage: `audio-sep [COMMAND] [OPTIONS] [INPUT_FILE]`
+Usage: `audio-sep-cli [COMMAND] [OPTIONS] [INPUT_FILE]`
 Command:
 ```
 separate										   Separate stems (default, optional)
@@ -84,20 +84,20 @@ Options:
 ```
 
 ### Default action (separate) - 'separate' command is optional:
-audio-sep "song.mp3" --start 3 --end 13 -o out
+audio-sep-cli "song.mp3" --start 3 --end 13 -o out
 
 ### Explicit command still works:
-audio-sep separate "song.mp3" --start 3 --end 13 -o out
+audio-sep-cli separate "song.mp3" --start 3 --end 13 -o out
 
 ### Keyboard/piano stem (experimental):
-audio-sep "song.mp3" --model htdemucs_6s -o out
+audio-sep-cli "song.mp3" --model htdemucs_6s -o out
 
 ## To create executable (note that FFmpeg is not included in install):
 -----------------------------------------------------------------------------
 In PowerShell run:
 ```
 pip install pyinstaller
-pyinstaller --onefile --name audio-sep --console src/audio_sep/cli.py
+pyinstaller --onefile --name audio-sep-cli --console src/audio_sep_cli/cli.py
 ```
 
 ## Notes
