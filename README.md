@@ -12,8 +12,8 @@ The stems are analysed for possible key, where key is added to filename.
 	      Drum-stem onset detection + hit slicing + classification (kick/snare/hat).\
 	      Keyboard as a stem: requires instrument separation / instrument recognition beyond the standard 4-stem Demucs output.\
 0.5.0 - Added stem-notes also for bass,guitar,piano,vocals,other.\
-0.6.0 - Fixed warning with spectrum.py, and default options.
-0.6.1 - Fixed warning with librosa, and corrected version-info in '__init__.py'.
+0.6.0 - Fixed warning with spectrum.py, and default options.\
+0.6.1 - Fixed warning with librosa, and corrected version-info in __init__.py.
 
 ## Install (dev)
 

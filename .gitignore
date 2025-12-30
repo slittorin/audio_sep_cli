@@ -4,6 +4,7 @@
 # Python build / cache artifacts
 /audio-sep-cli.spec
 /build/
+/dist/
 /src/audio_sep_cli.egg-info/
 /src/audio_sep_cli/__pycache__/
 

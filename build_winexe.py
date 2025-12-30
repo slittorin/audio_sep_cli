@@ -23,8 +23,7 @@ def main():
         raise FileNotFoundError(f"CLI file not found: {cli_file}")
 
     # Directory that contains the DLLs you want to bundle
-    # dll_dir = project_root / "dlls"   # <-- put your DLLs here (or change path)
-    dll_dir = "C:/code/tools/ffmpeg/bin/"
+    dll_dir = Path("C:/code/tools/ffmpeg/bin/")
     if not dll_dir.exists():
         print(f"⚠️ DLL directory not found (skipping): {dll_dir}")
         dll_glob = None
