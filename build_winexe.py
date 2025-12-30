@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+"""
+Build-exe script for Windows 
+
+Hardcoded to Python 3.11, since we otherwise get errors with some of the packages.
+
+Note that we also bundle FFmpeg-dll:s according to dll_dir below.
+"""
+
 import subprocess
 import sys
 from pathlib import Path

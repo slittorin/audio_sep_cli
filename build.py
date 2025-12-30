@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Bootstrap script for Windows 
+Bootstrap script for Windows.
 
 Hardcoded to Python 3.11, since we otherwise get errors with some of the packages.
 
@@ -83,7 +83,7 @@ def main() -> None:
     pip_install(venv_python, "-e", ".")
 
     print("\n✅ Done. Virtual environment is ready and project installed (editable).")
-    print(f"Activate in PowerShell:\n  .\.venv\Scripts\activate")
+    print(f"Activate in PowerShell:\n  .\.venv\Scripts\\activate")
 
 if __name__ == "__main__":
     main()

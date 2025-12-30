@@ -2,8 +2,8 @@
 /.venv/
 
 # Python build / cache artifacts
-/audio-sep.spec
-/build
+/audio-sep-cli.spec
+/build/
 /src/audio_sep_cli.egg-info/
 /src/audio_sep_cli/__pycache__/
 

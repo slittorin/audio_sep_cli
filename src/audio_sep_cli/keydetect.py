@@ -34,5 +34,8 @@ def estimate_key_label_for_wav(wav_path: Path) -> str:
     if len(y) < int(sr * 0.20):  # 200ms
         return "NA"
 
-    chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
+    if y.size == 0 or float(np.max(np.abs(y))) < 1e-4:
+        return "NA"
+
+    chroma = librosa.feature.chroma_cqt(y=y, sr=sr, tuning=0.0)
     return _best_key_from_chroma(chroma.mean(axis=1))

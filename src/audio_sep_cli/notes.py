@@ -8,6 +8,14 @@ import soundfile as sf
 
 NOTE_NAMES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 
+def _safe_frame_length(n: int, max_frame: int = 2048, min_frame: int = 256) -> int:
+    if n < min_frame:
+        return 0
+    frame = min(max_frame, n)
+    # Use a power-of-two frame length to avoid FFT warnings.
+    frame = 2 ** int(np.floor(np.log2(frame)))
+    return max(min_frame, frame)
+
 def _hz_to_note_name(f: float) -> str:
     if not np.isfinite(f) or f <= 0:
         return "NA"
@@ -21,7 +29,20 @@ def estimate_pitch_note_for_wav(wav_path: Path) -> tuple[str, float]:
     y, sr = librosa.load(str(wav_path), sr=None, mono=True)
     if y.size < sr * 0.05:
         return ("NA", 0.0)
-    f0 = librosa.yin(y, fmin=librosa.note_to_hz("C2"), fmax=librosa.note_to_hz("C7"), sr=sr)
+    if y.size == 0 or float(np.max(np.abs(y))) < 1e-4:
+        return ("NA", 0.0)
+    frame_length = _safe_frame_length(int(y.size))
+    if frame_length == 0:
+        return ("NA", 0.0)
+    hop_length = max(1, frame_length // 4)
+    f0 = librosa.yin(
+        y,
+        fmin=librosa.note_to_hz("C2"),
+        fmax=librosa.note_to_hz("C7"),
+        sr=sr,
+        frame_length=frame_length,
+        hop_length=hop_length,
+    )
     voiced = np.isfinite(f0)
     voiced_ratio = float(np.mean(voiced)) if f0.size else 0.0
     if voiced_ratio < 0.25:
