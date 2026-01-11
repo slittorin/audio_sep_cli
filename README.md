@@ -21,6 +21,30 @@ The stems are analysed for possible key, where key is added to filename.
 ### Python
 Install Python 3.11
 
+### Dev
+- Install VS Code
+- Install Git for Windows: https://gitforwindows.org/
+- Install GitHub CLI: https://cli.github.com/
+
+### Extensions
+Add the following extensions in VS Code:
+- Python + Pylance (Microsoft)
+- ESLint (for Node/TS)
+- Prettier (formatting)
+- GitHub Pull Requests and Issues
+
+### Setup Git
+Inside project-folder:
+```
+git config --global user.name "MYUSERNAMEINGIT"
+git config --global user.email "MYEMAILINGIT"
+git init
+git add .
+git commit -m "Initial commit"
+gh auth login
+gh repo create audio-sep-cli --source=. --private --push
+```
+
 ### Install FFmpeg
 Install in PowerShell: `winget install -e --id Gyan.FFmpeg`
 
@@ -82,7 +106,7 @@ Options:
 --note-delta                              FLOAT    Onset detector sensitivity for tonal slicing (higher=less sensitive) [default: 0.15].
 --note-max-events                         INTEGER  Limit number of slices per stem (for testing).
 --version           -V                             Show version and exit
---help                                             Show this message and exit.   
+--help                                             Help message.   
 ```
 
 ### Default action (separate) - 'separate' command is optional:
